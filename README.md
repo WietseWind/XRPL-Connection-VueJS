@@ -1,4 +1,6 @@
-# t
+# XRPL-Connection-VueJS
+
+Simple connection sample to XRPL nodes (livenet, testnet) using VueJS
 
 ## Project setup
 ```
@@ -19,6 +21,3 @@ npm run build
 ```
 npm run lint
 ```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
