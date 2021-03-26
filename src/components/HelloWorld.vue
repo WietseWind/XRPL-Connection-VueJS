@@ -4,19 +4,32 @@
     <button @click="connect('mainnet')">Connect to Mainnet</button>
     <button @click="connect('testnet')">Connect to Testnet</button>
     <h3>{{ net }}</h3>
+
+    <ObjectBrowser :object="msg" />
+
     <pre>{{ msg }}</pre>
   </div>
 </template>
 
 <script>
 import Client from 'rippled-ws-client'
+import ObjectBrowser from './ObjectBrowser'
 
 export default {
   name: 'HelloWorld',
+  components: {
+    ObjectBrowser
+  },
   data () {
     return {
       net: 'Not connected...',
-      msg: '',
+      msg: {
+        some: {
+          test: {
+            message: true
+          }
+        }
+      },
       client: null
     }
   },
@@ -37,6 +50,7 @@ export default {
         NoUserAgent: true
       })
       this.msg = await this.client.send({ command: 'server_info' })
+      console.log(typeof this.msg)
     }
   }
 }
