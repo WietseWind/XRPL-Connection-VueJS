@@ -17,28 +17,17 @@
 <script>
 export default {
   name: 'ObjectBrowser',
-  props: ['object'],
-  data () {
-    return {}
-  },
-  methods: {
-  },
-  watch: {
-  }
+  props: ['object']
 }
 </script>
 
 <style scoped lang="scss">
   div.object-container {
-    padding: 10px;
-    margin: 10px;
-    border: 1px solid red;
+    padding: 10px; margin: 10px; border: 1px solid red;
 
     code {
-      border: 1px solid #666;
-      background-color: grey;
-      padding: 2px 10px;
-      color: white;
+      border: 1px solid #666; background-color: grey;
+      padding: 2px 10px; color: white;
     }
   }
 </style>

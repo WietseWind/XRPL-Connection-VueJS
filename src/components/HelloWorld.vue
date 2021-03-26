@@ -5,9 +5,7 @@
     <button @click="connect('testnet')">Connect to Testnet</button>
     <h3>{{ net }}</h3>
 
-    <ObjectBrowser :object="msg" />
-
-    <pre>{{ msg }}</pre>
+    <ObjectBrowser v-if="msg !== null" :object="msg" />
   </div>
 </template>
 
@@ -23,13 +21,7 @@ export default {
   data () {
     return {
       net: 'Not connected...',
-      msg: {
-        some: {
-          test: {
-            message: true
-          }
-        }
-      },
+      msg: null,
       client: null
     }
   },
@@ -46,11 +38,16 @@ export default {
   },
   watch: {
     async net () {
-      this.client = await new Client(this.server, {
-        NoUserAgent: true
-      })
+      this.client = await new Client(this.server, { NoUserAgent: true })
       this.msg = await this.client.send({ command: 'server_info' })
-      console.log(typeof this.msg)
+      this.client.send({ command: 'subscribe', streams: ['server_info'] })
+      this.client.on('ledger', async ledger => {
+        const info = await this.client.send({ command: 'server_info' })
+        this.msg = {
+          ...info,
+          ...ledger
+        }
+      })
     }
   }
 }
